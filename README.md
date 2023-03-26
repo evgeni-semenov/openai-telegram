@@ -1,7 +1,8 @@
 # openai-telegram
 
 This is a Telegram bot that utilizes OpenAI API.
-At the moment you can use it for ChatGPT, image generation (dall-e) and voice message transcription (whisper).
+At the moment you can use it for ChatGPT, image generation (dall-e) and voice message transcription (whisper).  
+I wanted to test both openai python library as well as python requests to connect to API.
 
 # Setup
 
