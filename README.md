@@ -20,3 +20,5 @@ For image generation, use /pic:
 /pic black cat  
 
 For audio message transcription just forward the audio message to the bot (in a private chat)
+
+Evgeni Semenov, dev@safemail.sbs
