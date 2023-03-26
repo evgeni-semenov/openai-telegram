@@ -5,10 +5,10 @@ At the moment you can use it for ChatGPT, image generation (dall-e) and voice me
 
 # Setup
 
-Add your API keys for Telegram bot and OpenAI.
-Install requirements.
-You want to limit the users that are allowed to use the bot, add the desired userID's in the list. There are several ways how you can find out your userID, but the easiest one is to use https://t.me/getidsbot on Telegram.
-The same goes with allowed channels/groups. Add group IDs where you want to allow the usage of your bot.
+Add your API keys for Telegram bot and OpenAI.  
+Install requirements.  
+You want to limit the users that are allowed to use the bot, add the desired userID's in the list. There are several ways how you can find out your userID, but the easiest one is to use https://t.me/getidsbot on Telegram.  
+The same goes with allowed channels/groups. Add group IDs where you want to allow the usage of your bot.  
 
 # Usage
 
