@@ -12,10 +12,10 @@ The same goes with allowed channels/groups. Add group IDs where you want to allo
 
 # Usage
 
-To use ChatGPT, just enter a command /chat followed by a text in private chat with bot or on the channel where your bot is present. For example:
-/chat explain quantum computing
+To use ChatGPT, just enter a command /chat followed by a text in private chat with bot or on the channel where your bot is present. For example:  
+/chat explain quantum computing  
 
-For image generation, use /pic:
-/pic black cat
+For image generation, use /pic:  
+/pic black cat  
 
 For audio message transcription just forward the audio message to the bot (in a private chat)
