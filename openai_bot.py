@@ -1,4 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
+'''
+Telegram bot that uses OpenAI API.
+
+Evgeni Semenov, dev@safemail.sbs
+'''
 
 import os
 import tempfile
@@ -16,14 +22,12 @@ gpt3_engine_id = "gpt-3.5-turbo"  # Change this to the ID of the GPT engine you 
 allowed_users = [11111111, 11111111] # Add allowed users that can use the bot
 allowed_groups = [-1111111111] # Groups/channels where you want to use your bot
 
-
 bot = telegram.Bot(telegram_token)
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-
 
 #Restricted function
 def restricted(func):
@@ -78,7 +82,6 @@ def pic(update: telegram.Update, context: CallbackContext):
     image = requests.get(image_url).content
     bot = telegram.Bot(token=telegram_token)
     bot.send_photo(chat_id=message.chat_id, photo=image)
-
 
 @restricted
 def chat(update: telegram.Update, context: CallbackContext):
