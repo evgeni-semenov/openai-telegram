@@ -5,6 +5,8 @@ At the moment you can use it for ChatGPT, image generation (dall-e) and voice me
 I wanted to test both openai python library as well as python requests to connect to API.
 
 # Versions
+openai_bot_v13.py - for python telegram bot library v13.x
+openai_bot_v20.py - for python telegram bot library v20.x
 
 # Setup
 
