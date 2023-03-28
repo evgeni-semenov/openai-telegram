@@ -2,6 +2,9 @@
 
 '''
 Telegram bot that uses OpenAI API.
+For python-telegram-bot library v13.x
+
+Uses both python requests and openai libraries
 
 Evgeni Semenov, dev@safemail.sbs
 '''
