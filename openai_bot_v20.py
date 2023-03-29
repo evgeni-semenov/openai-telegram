@@ -33,12 +33,15 @@ openai_audio_model = "whisper-1"
 allowed_users = [1111111, 1111111] # Add allowed users that can use the bot
 allowed_groups = [-1111111] # Groups/channels where you want to use your bot
 
-
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
+logger = logging.getLogger(__name__)
+
+async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 def restricted(func): #this function restricts usage to specific users and on specific channels/groups
     @wraps(func)
@@ -138,10 +141,14 @@ async def voice_to_text(update: Update, context:ContextTypes.DEFAULT_TYPE):
         else:
             text = "Conversion failed!"
     else:
-        audio = download_file(message.file_path)
-        text = transcribe(audio)
+        file = download_file(message.file_path)
+        with open("out."+extension, "wb") as f:
+            f.write(file.getbuffer())
+        audio_file = open("out."+extension, "rb")
+        text = transcribe(audio_file)
+        os.unlink("out."+extension)
        
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    await update.message.reply_text(text)
 
 
 @restricted    
@@ -150,22 +157,22 @@ async def pic(update: Update, context:ContextTypes.DEFAULT_TYPE):
     query = message.text.split("/pic")[1].strip()
     image_url = generate_image(query)
     image = requests.get(image_url).content
-    await context.bot.send_photo(chat_id=message.chat_id, photo=image)
+    await update.message.reply_photo(image)
 
 @restricted
 async def chat(update: Update, context:ContextTypes.DEFAULT_TYPE):
     message = update.message
     query = message.text.split("/chat")[1].strip()
     response = generate_text(query)
-    await context.bot.send_message(chat_id=message.chat_id, text=response)
+    await update.message.reply_text(response)
 
 @restricted
 async def start(update: Update, context:ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! You can /chat with me, or ask me to create a /pic. I can also transcribe the voice messages for you (just forward it to me in private chat)")
+    await update.message.reply_text("Hello! You can /chat with me, or ask me to create a /pic. I can also transcribe the voice messages for you (just forward it to me in private chat)")
 
 @restricted
 async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
+    await update.message.reply_text("Sorry, I didn't understand that command.")
 
 
 if __name__ == "__main__":
@@ -183,7 +190,9 @@ if __name__ == "__main__":
     voice_handler = MessageHandler(filters.VOICE | filters.AUDIO, voice_to_text)
     application.add_handler(voice_handler)
 
+    application.add_error_handler(error)
+
     unknown_handler = MessageHandler(filters.COMMAND, unknown) #should be the last handler
     application.add_handler(unknown_handler)
-
+    
     application.run_polling()
